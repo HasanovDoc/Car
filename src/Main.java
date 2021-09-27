@@ -106,32 +106,35 @@ class CarsStorage {
     
     // Привидение объекта хранилища к строковому виду
     public String toString() {
-        String res = "[";
+        String res = "\n";
         for (int i = 0; i < storage.size(); i++) {
+            Car Car = storage.get(i); 
             if ( !(i == storage.size() - 1) ) {
-                res += storage.get(i);
-                res += ", ";
+                res += Car.getMarc();
+                res += "\n";
             } else {
-                res += storage.get(i);
+                res += Car.getMarc();
             }            
         }
-        res += "]";
+        res += "\n";
         return res;
     }
     
     // Получить автомобили по маркам (а)
     public String getCarsByidNumber(String marc) {
+        Scanner in = new Scanner(System.in);
+        marc = in.next().toString();
         String res = "";
 
         for (int i = 0; i < storage.size(); i++) {
             Car Car = storage.get(i);
-
-            if (Car.getMarc() == marc) {
+            String test = Car.getMarc();
+            if (test == marc) {
                 res += Car + "; ";
             }
 
         }
-
+        in.close();
         return res;
     }
     
@@ -183,10 +186,10 @@ class Main {
         s2.setcost(150000);
         s2.setDate(1999);
 
-        Car s3 = new Car("Mercedes-Benz", "W203", "Red");
+        Car s3 = new Car("Alfa Romeo", "Giulia", "Red");
         s3.setidNumber("aw 458");
-        s3.setcost(300000);
-        s3.setDate(2001);
+        s3.setcost(2500000);
+        s3.setDate(1962);
 
         Car s5 = new Car("Dodge",  "Challenger |||",  "Gray");
         s5.setidNumber("as 556");
@@ -198,22 +201,16 @@ class Main {
         storage.addCar(s3);
         storage.addCar(s5);
 
-        String M = "Dodge";
-		//int getY, getC, getO;
-        //M = in.next();
-        //Scanner in = new Scanner(System.in);
-
-        System.out.println("==============================================================================================================================");
-        System.out.print("Cписок автомобилей марки Mercedez-Benz: ");
-		
-        System.out.println(storage.getCarsByidNumber("Mercedes-Benz"));
+        Scanner in = new Scanner(System.in);
+        System.out.print("Cписок автомобилей марки ");	
+        System.out.println(storage.getCarsByidNumber(""));
 
         System.out.println("==============================================================================================================================");
         System.out.println("Cписок автомобилей марки Mercedes-Benz, которые эксплуатируются больше 10 лет: " + storage.getCarsByYear(10, "Mercedes-Benz"));
 				
         System.out.println("==============================================================================================================================");
         System.out.println("Список автомобилей 2016 года выпуска, цена которых больше 200 000: " + storage.getCarsByGroup(2016, 200000));
-        //in.close();
+        in.close();
 
     }
 }
