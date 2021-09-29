@@ -122,19 +122,16 @@ class CarsStorage {
     
     // Получить автомобили по маркам (а)
     public String getCarsByidNumber(String marc) {
-        Scanner in = new Scanner(System.in);
-        marc = in.next().toString();
         String res = "";
 
         for (int i = 0; i < storage.size(); i++) {
             Car Car = storage.get(i);
             String test = Car.getMarc();
-            if (test == marc) {
+            if (marc.equals(test)) {
                 res += Car + "; ";
             }
 
         }
-        in.close();
         return res;
     }
     
@@ -146,7 +143,7 @@ class CarsStorage {
             Car Car = storage.get(i);
             
 
-            if (((2021 - Car.getDate()) > year) && (Car.getMarc() == marc)) {
+            if (((2021 - Car.getDate()) > year) && (Car.getMarc().equals(marc))) {
                 res += Car + "; ";
             }
         }
@@ -202,14 +199,17 @@ class Main {
         storage.addCar(s5);
 
         Scanner in = new Scanner(System.in);
+
         System.out.print("Cписок автомобилей марки ");	
-        System.out.println(storage.getCarsByidNumber(""));
+        System.out.println(storage.getCarsByidNumber(in.next()));
 
         System.out.println("==============================================================================================================================");
-        System.out.println("Cписок автомобилей марки Mercedes-Benz, которые эксплуатируются больше 10 лет: " + storage.getCarsByYear(10, "Mercedes-Benz"));
+        System.out.print("Введите количество полных лет в эксплуатации, затем марку автомобиля через пробел: ");
+        System.out.println(storage.getCarsByYear(in.nextInt(), in.next()));
 				
         System.out.println("==============================================================================================================================");
-        System.out.println("Список автомобилей 2016 года выпуска, цена которых больше 200 000: " + storage.getCarsByGroup(2016, 200000));
+        System.out.print("Введите год выпуска, затем стоимость автомобиля через пробел: " );
+        System.out.println(storage.getCarsByGroup(in.nextInt(), in.nextInt()));
         in.close();
 
     }
